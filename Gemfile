@@ -17,7 +17,9 @@ gem 'puma', '~> 3.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+gem 'simple_command'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -31,7 +33,7 @@ group :development, :test do
     gem 'rspec-rails', '>= 3.5.0'
     gem 'shoulda'
     gem 'faker', :git => 'git://github.com/stympy/faker.git', :branch => 'master'
-    gem 'factory_girl_rails'
+    gem 'factory_bot_rails'
     gem 'pry-rails'
 end
 
