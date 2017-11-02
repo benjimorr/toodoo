@@ -4,7 +4,7 @@ RSpec.describe AuthenticateUser do
     subject(:context) { described_class.call(email, password) }
     let(:user) { create(:user) }
 
-    describe '.call' do
+    describe '#call' do
         context 'when the context is successful' do
             let(:email) { user.email }
             let(:password) { user.password }
@@ -18,8 +18,8 @@ RSpec.describe AuthenticateUser do
             let(:email) { 'wrong_email' }
             let(:password) { 'wrong_password' }
 
-            it 'fails' do
-                expect(context).to be_failure
+            it 'raises an authentication error' do
+                expect(context).to raise_error(ExceptionHandler::AuthenticationError)
             end
         end
     end
