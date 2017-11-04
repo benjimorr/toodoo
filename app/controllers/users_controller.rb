@@ -1,17 +1,42 @@
 class UsersController < ApplicationController
     skip_before_action :authenticate_request, only: :create
 
+    def profile
+        user = User.find(params[:id])
+        response = {
+            name: user.name,
+            email: user.email
+        }
+        json_response(response, :ok)
+    end
+
     def create
-        user = User.create!(user_params)
-        auth_token = AuthenticateUser.call(user.email, user.password)
-        response = { message: Message.account_created, auth_token: auth_token }
-        json_response(response, :created)
+        user = User.new(user_params)
+        if user.save
+            auth_token = AuthenticateUser.call(user.email, user.password)
+            response = { message: Message.account_created, auth_token: auth_token }
+            json_response(response, :created)
+        else
+            response = { message: Message.user_not_saved }
+            json_response(response, 422)
+        end
     end
 
     def update
+        user = User.find(params[:id])
+        user.assign_attributes(user_params)
+
+        if user.save
+            response = { message: Message.user_updated }
+            json_response(response, :ok)
+        else
+            response = { message: Message.user_not_saved }
+            json_response(response, 422)
+        end
     end
 
     def destroy
+        user = User.find(params[:id])
     end
 
     private

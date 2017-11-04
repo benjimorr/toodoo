@@ -36,4 +36,10 @@ RSpec.describe 'Users', type: :request do
             end
         end
     end
+
+    describe 'GET #profile' do
+        context 'when the request is valid' do
+            before { get '/profile', params: { user: user.id }, headers: headers }
+        end
+    end
 end

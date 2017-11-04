@@ -30,4 +30,12 @@ class Message
     def self.expired_token
         'Sorry, your token has expired. Please login to continue.'
     end
+
+    def self.user_not_saved
+        'An error occurred while trying to save user. Please try again.'
+    end
+
+    def self.user_updated
+        'User was updated successfully.'
+    end
 end
