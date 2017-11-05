@@ -1,25 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe AuthenticateUser do
-    subject(:context) { described_class.call(email, password) }
     let(:user) { create(:user) }
+
+    subject(:invalid_request_obj) { described_class.call('wrong_email', 'wrong_password') }
+    subject(:request_obj) { described_class.call(user.email, user.password) }
 
     describe '#call' do
         context 'when the context is successful' do
-            let(:email) { user.email }
-            let(:password) { user.password }
-
             it 'succeeds' do
-                expect(context).to be_success
+                expect(request_obj).to be_success
             end
         end
 
         context 'when the context is not successful' do
-            let(:email) { 'wrong_email' }
-            let(:password) { 'wrong_password' }
-
             it 'raises an authentication error' do
-                expect(context).to raise_error(ExceptionHandler::AuthenticationError)
+                expect { invalid_request_obj }.to raise_error(ExceptionHandler::AuthenticationError, 'Invalid credentials')
             end
         end
     end

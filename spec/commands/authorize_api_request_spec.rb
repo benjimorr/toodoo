@@ -11,7 +11,6 @@ RSpec.describe AuthorizeApiRequest do
     describe '#call' do
         context 'when the request is valid' do
             it 'returns the user object' do
-                #result = request_obj.call
                 expect(request_obj.result[:user]).to eq(user)
             end
         end

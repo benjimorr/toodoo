@@ -15,6 +15,10 @@ class Message
         'Missing token'
     end
 
+    def self.expired_token
+        'Sorry, your token has expired. Please login to continue.'
+    end
+
     def self.unauthorized
         'Unauthorized request'
     end
@@ -27,15 +31,19 @@ class Message
         'Account could not be created'
     end
 
-    def self.expired_token
-        'Sorry, your token has expired. Please login to continue.'
+    def self.account_removed
+        'Account removed successfully'
+    end
+
+    def self.account_not_removed
+        'An error occurred while trying to remove account. Please try again.'
+    end
+
+    def self.user_updated
+        'User updated successfully'
     end
 
     def self.user_not_saved
         'An error occurred while trying to save user. Please try again.'
-    end
-
-    def self.user_updated
-        'User was updated successfully.'
     end
 end

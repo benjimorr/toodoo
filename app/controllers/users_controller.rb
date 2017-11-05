@@ -2,8 +2,9 @@ class UsersController < ApplicationController
     skip_before_action :authenticate_request, only: :create
 
     def profile
-        user = User.find(params[:id])
+        user = User.find(@current_user.id)
         response = {
+            user_id: user.id,
             name: user.name,
             email: user.email
         }
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
             response = { message: Message.account_created, auth_token: auth_token }
             json_response(response, :created)
         else
-            response = { message: Message.user_not_saved }
+            response = { message: Message.account_not_created, errors: user.errors }
             json_response(response, 422)
         end
     end
@@ -27,16 +28,23 @@ class UsersController < ApplicationController
         user.assign_attributes(user_params)
 
         if user.save
-            response = { message: Message.user_updated }
+            response = { message: Message.user_updated, user: user }
             json_response(response, :ok)
         else
-            response = { message: Message.user_not_saved }
+            response = { message: Message.user_not_saved, errors: user.errors}
             json_response(response, 422)
         end
     end
 
     def destroy
         user = User.find(params[:id])
+
+        if user.destroy
+            response = { message: Message.account_removed }
+            json_response(response, :ok)
+        else
+            response = { message: Message.account_not_removed }
+        end
     end
 
     private
