@@ -9,7 +9,7 @@ RSpec.describe 'Users', type: :request do
         end
 
         context 'when the request is valid' do
-            before { post '/signup', params: valid_signup_attributes.to_json, headers: signup_headers }
+            before { post '/users', params: valid_signup_attributes.to_json, headers: signup_headers }
 
             it 'creates a new user' do
                 expect(response).to have_http_status(201)
@@ -25,7 +25,7 @@ RSpec.describe 'Users', type: :request do
         end
 
         context 'when the request is invalid' do
-            before { post '/signup', params: {}, headers: signup_headers }
+            before { post '/users', params: {}, headers: signup_headers }
 
             it 'returns http failure' do
                 expect(response).to have_http_status(422)
@@ -41,11 +41,11 @@ RSpec.describe 'Users', type: :request do
         end
     end
 
-    describe 'GET #profile' do
+    describe 'GET #show' do
         let(:user) { create(:user) }
 
         context 'when the request is valid' do
-            before { get '/profile', headers: valid_headers }
+            before { get '/users/me', headers: valid_headers }
 
             it 'returns http success' do
                 expect(response).to have_http_status(200)
@@ -63,6 +63,14 @@ RSpec.describe 'Users', type: :request do
                 expect(json['email']).to eq(user.email)
             end
         end
+
+        context 'when the request headers are invalid' do
+            before { get '/users/me', headers: invalid_headers }
+
+            it 'returns http failure' do
+                expect(response).to have_http_status(401)
+            end
+        end
     end
 
     describe 'PUT #update' do
@@ -77,7 +85,7 @@ RSpec.describe 'Users', type: :request do
         end
 
         context 'when the request is valid' do
-            before { put '/users/' + user.id.to_s, params: new_attributes.to_json, headers: valid_headers }
+            before { put "/users/#{user.id}", params: new_attributes.to_json, headers: valid_headers }
 
             it 'returns http success' do
                 expect(response).to have_http_status(200)
@@ -94,7 +102,7 @@ RSpec.describe 'Users', type: :request do
         end
 
         context 'when the user attributes are invalid' do
-            before { put '/users/' + user.id.to_s, params: {}, headers: valid_headers }
+            before { put "/users/#{user.id}", params: {}, headers: valid_headers }
 
             it 'returns http failure' do
                 expect(response).to have_http_status(422)
@@ -115,7 +123,7 @@ RSpec.describe 'Users', type: :request do
         let(:user) { create(:user) }
 
         context 'when the request is valid' do
-            before { delete '/users/' + user.id.to_s, headers: valid_headers }
+            before { delete "/users/#{user.id}", headers: valid_headers }
 
             it 'returns http success' do
                 expect(response).to have_http_status(200)

@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-    post 'login', to: 'authentication#authenticate'
-
-    post 'signup', to: 'users#create'
-    get 'profile', to: 'users#profile'
-
-    resources :users, only: [:update, :destroy]
+    get '/users/me' => 'users#show'
+    resources :users, only: [:create, :update, :destroy]
+    resources :sessions, only: [:create]
 end

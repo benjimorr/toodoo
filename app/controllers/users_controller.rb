@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
     skip_before_action :authenticate_request, only: :create
 
-    def profile
+    def show
         user = User.find(@current_user.id)
         response = {
             user_id: user.id,

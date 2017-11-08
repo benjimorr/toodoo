@@ -1,7 +1,7 @@
-class AuthenticationController < ApplicationController
-    skip_before_action :authenticate_request, only: :authenticate
+class SessionsController < ApplicationController
+    skip_before_action :authenticate_request, only: :create
 
-    def authenticate
+    def create
         command = AuthenticateUser.call(auth_params[:email], auth_params[:password])
 
         if command.success?
