@@ -44,6 +44,7 @@ class UsersController < ApplicationController
             json_response(response, :ok)
         else
             response = { message: Message.account_not_removed }
+            json_response(response, 404)
         end
     end
 

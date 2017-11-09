@@ -46,4 +46,28 @@ class Message
     def self.user_not_saved
         'An error occurred while trying to save user. Please try again.'
     end
+
+    def self.todo_created
+        'To-do list created successfully'
+    end
+
+    def self.todo_not_created
+        'To-do list could not be created'
+    end
+
+    def self.todo_updated
+        'To-do list updated successfully'
+    end
+
+    def self.todo_not_saved
+        'An error occurred while trying to save the to-do list. Please try again.'
+    end
+
+    def self.todo_removed
+        'To-do list removed successfully'
+    end
+
+    def self.todo_not_removed
+        'An error occurred while trying to remove the to-do list. Please try again.'
+    end
 end

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
     let(:user) { create(:user) }
-    let(:todo) { create(:todo) }
-    let(:item) { create(:item) }
+    let(:todo) { create(:todo, user: user) }
+    let(:item) { create(:item, todo: todo) }
 
     it { is_expected.to belong_to(:todo) }
 
