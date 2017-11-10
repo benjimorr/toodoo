@@ -6,10 +6,12 @@ class TodosController < ApplicationController
 
     def show
         @todo = Todo.find(params[:id])
+        @items = @todo.items
         response = {
             todo_id: @todo.id,
             title: @todo.title,
-            category: @todo.category
+            category: @todo.category,
+            items: @items
         }
         json_response(response, :ok)
     end

@@ -70,4 +70,28 @@ class Message
     def self.todo_not_removed
         'An error occurred while trying to remove the to-do list. Please try again.'
     end
+
+    def self.item_created
+        'To-do list item created successfully'
+    end
+
+    def self.item_not_created
+        'To-do list item could not be created'
+    end
+
+    def self.item_updated
+        'To-do list item updated successfully'
+    end
+
+    def self.item_not_saved
+        'An error occurred while trying to save the to-do list item. Please try again.'
+    end
+
+    def self.item_removed
+        'To-do list item removed successfully'
+    end
+
+    def self.item_not_removed
+        'An error occurred while trying to remove the to-do list item. Please try again.'
+    end
 end

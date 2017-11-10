@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Todos', type: :request do
     let(:user) { create(:user) }
     let!(:todos) { create_list(:todo, 10, user: user) }
+    let!(:items) { create_list(:item, 20, todo: todos.first) }
     let(:todo_id) { todos.first.id }
 
     describe 'GET #index' do
@@ -30,6 +31,11 @@ RSpec.describe 'Todos', type: :request do
                 expect(json['todo_id']).to eq(todo_id)
                 expect(json['title']).to eq(todos.first.title)
                 expect(json['category']).to eq(todos.first.category)
+            end
+
+            it 'returns the todo items for that todo list' do
+                expect(json['items']).not_to be_nil
+                expect(json['items'].size).to eq(20)
             end
         end
 
@@ -125,8 +131,8 @@ RSpec.describe 'Todos', type: :request do
             end
 
             it 'does not update the todo list' do
-                expect(todos.first.title).to_not eq(new_attributes[:title])
-                expect(todos.first.category).to_not eq(new_attributes[:category])
+                expect(todos.first.title).to_not eq(bad_new_attributes[:title])
+                expect(todos.first.category).to_not eq(bad_new_attributes[:category])
             end
 
             it 'returns failure message' do
@@ -147,7 +153,7 @@ RSpec.describe 'Todos', type: :request do
                 expect(json['message']).to match('To-do list removed successfully')
             end
 
-            it 'deletes the user' do
+            it 'deletes the todo list' do
                 count = Todo.where({id: todo_id}).size
                 expect(count).to eq 0
             end
