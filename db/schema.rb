@@ -12,6 +12,8 @@
 
 ActiveRecord::Schema.define(version: 20171108041750) do
 
+  enable_extension "plpgsql"
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.boolean "complete", default: false
