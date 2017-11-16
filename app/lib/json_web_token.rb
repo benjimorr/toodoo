@@ -1,4 +1,3 @@
-# Create a singleton class by using class << self within the initial class
 class JsonWebToken
     def self.encode(payload, exp = 24.hours.from_now)
         payload[:exp] = exp.to_i
